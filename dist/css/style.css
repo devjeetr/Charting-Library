@@ -1,0 +1,26 @@
+body {
+  padding: none;
+  margin: none; }
+
+#header-area {
+  display: flex; }
+
+#filter-menu-parent-div {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 40%; }
+
+#filter-menu-checkbox-grid {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+  border: 0.1px solid; }
+
+.filter-menu-item {
+  display: flex;
+  flex: 1 0 30%;
+  justify-content: space-around; }
+
+#content-area {
+  padding: 2em; }

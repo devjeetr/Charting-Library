@@ -1,0 +1,1 @@
+export const DATA_VISUALIZATION_ROUTE = "getVisualizationData";
