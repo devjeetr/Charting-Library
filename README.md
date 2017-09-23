@@ -48,13 +48,6 @@ let linegraph = Layer({
 		category: d => d.variable,
 		geom: [drawCategoricalPaths],
     //...other aesthetic mappings such as height, width, margins etc
-    });let linegraph = Layer({
-		data: data,
-		x: d => d.Time,
-		y: d => d.value,
-		category: d => d.variable,
-		geom: [drawCategoricalPaths],
-    //...other aesthetic mappings such as height, width, margins etc
     });
 ```
 now to transform to a linegraph with scatterplot:
