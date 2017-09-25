@@ -86,5 +86,32 @@ Lastly, this framework uses a pub/sub event pattern, where each layer can have i
 #### To summarize, this is an alternative reusable framework for writing reusable D3 charts
 
 
+# Architecture
+
+## Basic Components of a Chart, GoG style
+
+#### Essential Properties: Data, Aesthetics, Geometries, Scales and Data Transforms
+These are the basic building blocks of any layer of a graph described in the GoG style
+
+#### Layers
+A *Layer* is the smallest unit of the GoG universe that can be rendered by itself, so long as it's *essential properties* have been defined. The *Layer* handles the actual rendering of the plot; it performs the data transform and the scaling, then calls on the geometry function to actually plot the graph. The *Layer* also handles events and updates, which will be discussed later on.
+
+#### LayerGroup
+A *LayerGroup*, as the name suggests, is basically a bunch of *Layers*. It supports all operations that a single *Layer* can perform. Instead of having a separate chart wrapper that contains *Layers* within it, I simply made a *LayerGroup* to keep the API simple and uniform.
+
+## Events and Updates
+
+This library uses a *pub/sub* model for events. Any DOM event that exists, you can subscribe to it. But how does this work across *Layers*?
+
+Well, you are able to subscribe to events on individual *Layers*, but you can also subscribe to events on a particular element inside a particular geometry. We need to get into the details to understand this.
+
+Each geometry can register elements that are available for events. So in the earlier lineplot with scatter points example, the line geometry component can register *both* or either the lines or the scatter points. As a user of this geometry, you can then subscribe to whichever elements you need. You can do this either by reading the specific documentation for the geometry to figure out which events are available, or ask the *Layer* for a list of all geometries and events supported by them.
+
+The reason for this system is that each geometry can be unique and can have multiple elements to it that might be relevant to certain operations, and its hard to enumerate and account for all possibilities preemptively. The current system frees the geometry creator of having to think about how events will be used by users of the framework. They can just register as many or as few elements as they like and its up to the user of the geometry to decide which elements they want to listen to and which to ignore,
+
+The updates work in similar fashion, however updates work on geometry level rather than for individual elements of a geometry. A geometry creator can define the what can be updated, and the actual logic of the update. On the other side, the user can trigger the update with the new property and not have to worry about how the update is actually propogated.
+
+
+
 
 
